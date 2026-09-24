@@ -9,13 +9,12 @@ Static site for legacyventures.global. One page (`index.html`) with client-side 
 
 Routes like `/about` and `/accelerator` are rewritten to `index.html` by `vercel.json`, so shared links work.
 
-## Turn on real login (Supabase, free tier)
-The Log in / Sign up / Reset password pages are wired for Supabase Auth. Until keys are added they run in waitlist mode.
-1. Create a project at supabase.com. In Authentication > Providers, enable Email.
-2. In Project Settings > API copy the Project URL and the anon public key.
-3. In `index.html` find `const LV_AUTH = { supabaseUrl: "", supabaseAnonKey: "" };` and paste both values.
-4. In Supabase Authentication > URL Configuration set Site URL to `https://www.legacyventures.global` and add `https://www.legacyventures.global/#login` to Redirect URLs.
-5. Redeploy. Sign-up sends a confirmation email; log-in shows the account page.
+## Login (Firebase Authentication)
+Log in, Sign up, Google sign-in and password reset run on Firebase Authentication, project `legacy-ventures-51b72` (Wakil's Google account, console.firebase.google.com).
+- Providers enabled: Email/Password and Google. Manage under Authentication > Sign-in method.
+- Authorized domains: legacyventures.global, www.legacyventures.global, legacy-ventures-site.vercel.app. Add any new domain under Authentication > Settings > Authorized domains or Google sign-in will refuse it.
+- Users appear under Authentication > Users. The web config is in `index.html` (`FIREBASE_CONFIG`); the apiKey there is a public identifier, not a secret.
+- Verification and reset emails come from noreply@legacy-ventures-51b72.firebaseapp.com; customise them under Authentication > Templates.
 
 ## Forms
 The waitlist and newsletter forms currently show a thank-you message only. Connect them to a form backend (Formspree, Tally, a Supabase table, or Google Sheets via n8n) when ready: see `wireForm()` in `index.html`.

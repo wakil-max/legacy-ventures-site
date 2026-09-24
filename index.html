@@ -9,10 +9,12 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.legacyventures.global/">
 <meta property="og:image" content="https://www.legacyventures.global/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#80CE51">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)} img{max-width:100%} [hidden]{display:none!important}</style>
 <title>Legacy Ventures</title>
+<link rel="canonical" href="https://www.legacyventures.global/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,500;0,600;0,700;0,800;1,300&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap">
 </head>
@@ -387,6 +389,16 @@
   :root[data-theme="dark"] .auth-card .msg.err{background:#3A1F1B; color:#F5B7AD}
   .account-card{background:var(--card); border:1px solid var(--line); border-radius:24px; padding:32px; max-width:640px}
   .account-card .kv{margin-top:8px}
+  .btn-google{background:var(--card); color:var(--ink); border:1.5px solid var(--line); width:100%; justify-content:center; padding-block:13px}
+  .btn-google:hover{border-color:var(--brand)}
+  .btn-google svg{width:18px; height:18px}
+  .or{display:flex; align-items:center; gap:12px; color:var(--muted); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-block:16px}
+  .or::before, .or::after{content:""; flex:1; height:1px; background:var(--line)}
+  .legal h2{font-size:22px; margin-top:28px}
+  .legal p, .legal li{color:var(--ink-2); max-width:70ch}
+  .legal p{margin-top:10px}
+  .legal ul{padding-left:20px; margin-top:8px}
+  .legal .updated{font-size:13px; color:var(--muted); font-weight:600}
 
   /* ---------- Footer ---------- */
   .site-footer{background:var(--footer); color:var(--footer-ink); padding-block:56px 28px; margin-top:40px}
@@ -981,7 +993,9 @@
       <svg class="mark" aria-hidden="true"><use href="#lv-mark" width="100%" height="100%"/></svg>
       <h1>Log in</h1>
       <p class="sub">Founder accounts for applications, session materials and your growth dashboard.</p>
-      <form id="loginForm" novalidate>
+      <button class="btn btn-google" type="button" id="googleLogin" style="margin-top:22px"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.3-1.6 3.8-5.5 3.8-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.1.8 3.9 1.5l2.6-2.5C16.9 3.2 14.7 2.2 12 2.2 6.6 2.2 2.3 6.6 2.3 12s4.3 9.8 9.7 9.8c5.6 0 9.3-3.9 9.3-9.5 0-.6-.1-1.1-.2-1.6H12z"/></svg>Continue with Google</button>
+      <div class="or">or</div>
+      <form id="loginForm" novalidate style="margin-top:0">
         <div><label for="li-email">Email</label><input id="li-email" type="email" autocomplete="email" required></div>
         <div><label for="li-pass">Password</label><input id="li-pass" type="password" autocomplete="current-password" required></div>
         <div class="row"><span></span><a href="#forgot">Forgot password?</a></div>
@@ -1000,7 +1014,9 @@
       <svg class="mark" aria-hidden="true"><use href="#lv-mark" width="100%" height="100%"/></svg>
       <h1>Create your account</h1>
       <p class="sub">One account for applications, cohort materials and updates from Legacy Ventures.</p>
-      <form id="signupForm" novalidate>
+      <button class="btn btn-google" type="button" id="googleSignup" style="margin-top:22px"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.3-1.6 3.8-5.5 3.8-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.1.8 3.9 1.5l2.6-2.5C16.9 3.2 14.7 2.2 12 2.2 6.6 2.2 2.3 6.6 2.3 12s4.3 9.8 9.7 9.8c5.6 0 9.3-3.9 9.3-9.5 0-.6-.1-1.1-.2-1.6H12z"/></svg>Sign up with Google</button>
+      <div class="or">or</div>
+      <form id="signupForm" novalidate style="margin-top:0">
         <div><label for="su-name">Full name</label><input id="su-name" type="text" autocomplete="name" required></div>
         <div><label for="su-email">Email</label><input id="su-email" type="email" autocomplete="email" required></div>
         <div><label for="su-pass">Password</label><input id="su-pass" type="password" autocomplete="new-password" minlength="8" required placeholder="At least 8 characters"></div>
@@ -1038,8 +1054,9 @@
       <p class="lead">Your Legacy Ventures account. Applications, cohort materials and session recordings will appear here as they become available.</p>
       <div class="account-card" style="margin-top:28px">
         <div class="kv">
+          <div><div class="k">Name</div><div class="v" id="accountFullName"></div></div>
           <div><div class="k">Signed in as</div><div class="v" id="accountEmail"></div></div>
-          <div><div class="k">Status</div><div class="v">Waitlist member. Applications open soon.</div></div>
+          <div><div class="k">Status</div><div class="v" id="accountStatus">Account created. Applications open soon; you will be emailed first.</div></div>
         </div>
         <div style="margin-top:22px; display:flex; flex-wrap:wrap; gap:12px">
           <a href="#apply" class="btn btn-primary">Join the waitlist <span class="arrow">→</span></a>
@@ -1048,6 +1065,53 @@
       </div>
     </div>
   </section>
+</div>
+
+<!-- ================= PRIVACY ================= -->
+<div class="page" data-page="privacy">
+  <section class="page-hero"><div class="container legal">
+    <div class="eyebrow">Legal</div>
+    <h1 class="h1" style="margin-top:8px">Privacy Policy</h1>
+    <p class="updated" style="margin-top:10px">Last updated 24 September 2026</p>
+    <p>Legacy Ventures ("we", "us") runs legacyventures.global. This policy explains what we collect when you use the site and how we use it.</p>
+    <h2>What we collect</h2>
+    <ul>
+      <li>Account details you give us when you sign up: your name, email address and, if you sign in with Google, the name and email on your Google account.</li>
+      <li>Waitlist and newsletter details you submit: name, email, country and business information.</li>
+      <li>Basic technical data such as browser type and pages visited, used to keep the site working and secure.</li>
+    </ul>
+    <h2>How we use it</h2>
+    <ul>
+      <li>To run your account and let you log in.</li>
+      <li>To tell you when applications open and to send program updates you asked for.</li>
+      <li>To assess applications to our programs.</li>
+    </ul>
+    <p>We do not sell your data. Accounts are handled by Firebase Authentication (Google), which stores your login details on our behalf.</p>
+    <h2>Your choices</h2>
+    <p>You can ask us to correct or delete your data at any time by writing to apply@legacyventures.global. Newsletter emails include an unsubscribe link.</p>
+    <h2>Contact</h2>
+    <p>Legacy Ventures, 2/1/E, Eden Center, Arambagh, Motijheel, Dhaka 1000, Bangladesh. apply@legacyventures.global</p>
+  </div></section>
+</div>
+
+<!-- ================= TERMS ================= -->
+<div class="page" data-page="terms">
+  <section class="page-hero"><div class="container legal">
+    <div class="eyebrow">Legal</div>
+    <h1 class="h1" style="margin-top:8px">Terms &amp; Conditions</h1>
+    <p class="updated" style="margin-top:10px">Last updated 24 September 2026</p>
+    <p>By using legacyventures.global or applying to a Legacy Ventures program you agree to these terms.</p>
+    <h2>Accounts</h2>
+    <p>You are responsible for keeping your login details safe and for the information you give us. Give us accurate information about yourself and your business; false or misleading information can end an application at any stage.</p>
+    <h2>Applications and selection</h2>
+    <p>Submitting an application does not guarantee a place. Selection is at our discretion and may include additional tasks, assessments and interviews. Program dates, formats and terms are published with each cohort's call for applications.</p>
+    <h2>Content</h2>
+    <p>Text, logos and materials on this site belong to Legacy Ventures or their respective owners and may not be reused without permission. Session recordings and cohort materials are for participants' own use.</p>
+    <h2>Liability</h2>
+    <p>The site and programs are provided as they are. Legacy Ventures is not liable for business decisions you take based on program content or mentoring.</p>
+    <h2>Contact</h2>
+    <p>Questions about these terms: apply@legacyventures.global</p>
+  </div></section>
 </div>
 
 <!-- ================= APPLY ================= -->
@@ -1116,7 +1180,7 @@
     </div>
     <div class="footer-bottom">
       <div>© 2026 Legacy Ventures. A different kind of entrepreneurship.</div>
-      <div><a href="#contact">Privacy Policy</a><a href="#contact">Terms &amp; Conditions</a></div>
+      <div><a href="#privacy">Privacy Policy</a><a href="#terms">Terms &amp; Conditions</a></div>
     </div>
   </div>
 </footer>
@@ -1201,7 +1265,7 @@
     el.innerHTML = list.map(c=>`<article class="cohort"><h3>${esc(c.name)}</h3><div class="yr">Batch ${c.year}</div><span class="tag">${esc(c.tag)}</span><ul>${c.lines.map(l=>`<li>${esc(l)}</li>`).join('')}</ul><div class="foot">${c.foot}</div></article>`).join('');
   });
 
-  let currentUser = null;
+  let currentUser = null, authReady = false;
   /* ---------- Router ---------- */
   const pages = [...document.querySelectorAll('.page')];
   const known = new Set(pages.map(p=>p.dataset.page));
@@ -1211,7 +1275,7 @@
   function route(){
     let id = (location.hash||'#home').slice(1);
     if(!known.has(id)) id = 'home';
-    if(id==='account' && !currentUser){ id='login'; }
+    if(id==='account' && !currentUser){ id = authReady ? 'login' : 'account'; }
     pages.forEach(p=>p.classList.toggle('is-visible', p.dataset.page===id));
     const active = navMap[id]||id;
     document.querySelectorAll('.nav-desktop a').forEach(a=>a.classList.toggle('is-active', a.dataset.nav===active));
@@ -1251,59 +1315,110 @@
     function selectEmail(){ const r=document.createRange(); r.selectNodeContents(document.getElementById('emailText')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
   });
 
-  /* ---------- Auth (Supabase-ready) ----------
-     To turn on real accounts: create a free Supabase project, enable Email auth,
-     and paste the project URL and anon key below. Until then the forms run in
-     waitlist mode and explain that accounts open with the next application round. */
-  const LV_AUTH = { supabaseUrl: "", supabaseAnonKey: "" };
-  let sb = null;
+  /* ---------- Auth (Firebase Authentication) ---------- */
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyAc8JAxaqscf-WOddd2XNW3rWm5KBiLWs8",
+    authDomain: "legacy-ventures-51b72.firebaseapp.com",
+    projectId: "legacy-ventures-51b72",
+    storageBucket: "legacy-ventures-51b72.firebasestorage.app",
+    messagingSenderId: "316782012240",
+    appId: "1:316782012240:web:f43624ad03c0c1301fee55"
+  };
+  let fbAuth = null;
   const userBtn = document.getElementById('userBtn');
+  const USER_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
   function setUser(u){
     currentUser = u;
-    if(u){ userBtn.classList.add('signed'); userBtn.textContent = (u.email||'?')[0].toUpperCase(); userBtn.setAttribute('href','#account'); userBtn.title='Your account'; }
-    else { userBtn.classList.remove('signed'); userBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>'; userBtn.setAttribute('href','#login'); userBtn.title='Log in'; }
+    const first = u && (u.displayName || u.email || '?');
+    if(u){ userBtn.classList.add('signed'); userBtn.textContent = first[0].toUpperCase(); userBtn.setAttribute('href','#account'); userBtn.title='Your account'; }
+    else { userBtn.classList.remove('signed'); userBtn.innerHTML = USER_ICON; userBtn.setAttribute('href','#login'); userBtn.title='Log in'; }
     document.querySelectorAll('[data-authlink]').forEach(a=>{ a.textContent = u ? 'My account' : 'Log In'; a.setAttribute('href', u ? '#account' : '#login'); });
-    const em = document.getElementById('accountEmail'); if(em) em.textContent = u ? u.email : '';
-    const nm = document.getElementById('accountName'); if(nm) nm.textContent = u && u.user_metadata && u.user_metadata.full_name ? u.user_metadata.full_name.split(' ')[0]+'.' : 'back.';
+    const em = document.getElementById('accountEmail'); if(em) em.textContent = u ? (u.email || '') : '';
+    const fn = document.getElementById('accountFullName'); if(fn) fn.textContent = u ? (u.displayName || 'Not set') : '';
+    const nm = document.getElementById('accountName'); if(nm) nm.textContent = u && u.displayName ? u.displayName.split(' ')[0] + '.' : 'back.';
+    const st = document.getElementById('accountStatus'); if(st && u) st.textContent = (u.emailVerified || (u.providerData||[]).some(p=>p.providerId==='google.com')) ? 'Account active. Applications open soon; you will be emailed first.' : 'Account created. Please confirm your email using the link we sent you.';
+    // re-route if the user is sitting on an auth page
+    const h = location.hash;
+    if(u && (h==='#login' || h==='#signup' || h==='#forgot')) location.hash = '#account';
+    else if(!u && h==='#account') location.hash = '#login';
   }
   function say(id, text, err){ const el=document.getElementById(id); el.hidden=false; el.textContent=text; el.classList.toggle('err', !!err); }
   function validEmail(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
-  const WAITLIST_NOTE = 'Founder accounts open with the next application round. Join the waitlist and we will email you the day sign-ups open.';
-  function initAuth(){
-    if(LV_AUTH.supabaseUrl && LV_AUTH.supabaseAnonKey){
-      const s=document.createElement('script'); s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-      s.onload=()=>{ sb = window.supabase.createClient(LV_AUTH.supabaseUrl, LV_AUTH.supabaseAnonKey); sb.auth.getSession().then(({data})=>setUser(data.session?data.session.user:null)); sb.auth.onAuthStateChange((_e,session)=>setUser(session?session.user:null)); };
-      document.head.appendChild(s);
+  const ERR = {
+    'auth/invalid-credential':'Wrong email or password. Please try again.',
+    'auth/wrong-password':'Wrong email or password. Please try again.',
+    'auth/user-not-found':'No account with that email yet. You can sign up below.',
+    'auth/invalid-email':'That email address does not look right.',
+    'auth/email-already-in-use':'An account with this email already exists. Try logging in, or reset your password.',
+    'auth/weak-password':'Please choose a stronger password (at least 8 characters).',
+    'auth/too-many-requests':'Too many attempts. Please wait a few minutes and try again.',
+    'auth/popup-closed-by-user':'The Google window was closed before finishing. Please try again.',
+    'auth/cancelled-popup-request':'The Google window was closed before finishing. Please try again.',
+    'auth/network-request-failed':'Network problem. Check your connection and try again.',
+    'auth/unauthorized-domain':'Sign-in is not enabled for this address yet. Please use www.legacyventures.global.',
+    'auth/account-exists-with-different-credential':'This email is already registered with a password. Log in with your password instead.'
+  };
+  const friendly = e => ERR[e && e.code] || (e && e.message ? e.message.replace(/^Firebase: /,'').replace(/\s*\(auth.*\)\.?$/,'') : 'Something went wrong. Please try again.');
+  const NOT_READY = 'Sign-in is still loading. Please try again in a moment.';
+  function loadScript(src){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=()=>rej(new Error('load '+src)); document.head.appendChild(s); }); }
+  async function initAuth(){
+    try{
+      await loadScript('https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js');
+      await loadScript('https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js');
+      firebase.initializeApp(FIREBASE_CONFIG);
+      fbAuth = firebase.auth();
+      fbAuth.useDeviceLanguage();
+      authReady = true;
+      fbAuth.onAuthStateChanged(u=>setUser(u));
+      // finish a redirect-based Google sign-in, if one is pending
+      fbAuth.getRedirectResult().catch(e=>{ if(e && e.code) say('loginMsg', friendly(e), true); });
+    }catch(e){ console.error('Auth failed to load', e); }
+  }
+  async function googleSignIn(msgId){
+    if(!authReady) return say(msgId, NOT_READY, true);
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({prompt:'select_account'});
+    try{
+      await fbAuth.signInWithPopup(provider);
+      say(msgId,'Signed in with Google.'); location.hash='#account';
+    }catch(e){
+      if(e && (e.code==='auth/popup-blocked' || e.code==='auth/operation-not-supported-in-this-environment')){
+        try{ await fbAuth.signInWithRedirect(provider); }catch(e2){ say(msgId, friendly(e2), true); }
+      } else say(msgId, friendly(e), true);
     }
   }
+  document.getElementById('googleLogin').addEventListener('click', ()=>googleSignIn('loginMsg'));
+  document.getElementById('googleSignup').addEventListener('click', ()=>googleSignIn('signupMsg'));
   document.getElementById('loginForm').addEventListener('submit', async e=>{
     e.preventDefault(); const email=document.getElementById('li-email').value.trim(), pass=document.getElementById('li-pass').value;
     if(!validEmail(email)) return say('loginMsg','Please enter a valid email address.',true);
     if(!pass) return say('loginMsg','Please enter your password.',true);
-    if(!sb) return say('loginMsg', WAITLIST_NOTE);
-    const {error} = await sb.auth.signInWithPassword({email, password:pass});
-    if(error) return say('loginMsg', error.message, true);
-    say('loginMsg','Signed in.'); location.hash='#account';
+    if(!authReady) return say('loginMsg', NOT_READY, true);
+    try{ await fbAuth.signInWithEmailAndPassword(email, pass); say('loginMsg','Signed in.'); location.hash='#account'; }
+    catch(err){ say('loginMsg', friendly(err), true); }
   });
   document.getElementById('signupForm').addEventListener('submit', async e=>{
     e.preventDefault(); const name=document.getElementById('su-name').value.trim(), email=document.getElementById('su-email').value.trim(), pass=document.getElementById('su-pass').value;
     if(!name) return say('signupMsg','Please enter your name.',true);
     if(!validEmail(email)) return say('signupMsg','Please enter a valid email address.',true);
     if(pass.length<8) return say('signupMsg','Password needs at least 8 characters.',true);
-    if(!sb) return say('signupMsg', WAITLIST_NOTE);
-    const {error} = await sb.auth.signUp({email, password:pass, options:{data:{full_name:name}}});
-    if(error) return say('signupMsg', error.message, true);
-    say('signupMsg','Account created. Check your inbox to confirm your email, then log in.');
+    if(!authReady) return say('signupMsg', NOT_READY, true);
+    try{
+      const cred = await fbAuth.createUserWithEmailAndPassword(email, pass);
+      await cred.user.updateProfile({displayName: name});
+      try{ await cred.user.sendEmailVerification(); }catch(_){}
+      setUser(fbAuth.currentUser);
+      say('signupMsg','Account created. We sent a confirmation link to '+email+'.'); location.hash='#account';
+    }catch(err){ say('signupMsg', friendly(err), true); }
   });
   document.getElementById('forgotForm').addEventListener('submit', async e=>{
     e.preventDefault(); const email=document.getElementById('fp-email').value.trim();
     if(!validEmail(email)) return say('forgotMsg','Please enter a valid email address.',true);
-    if(!sb) return say('forgotMsg', WAITLIST_NOTE);
-    const {error} = await sb.auth.resetPasswordForEmail(email, {redirectTo: location.origin + '/#login'});
-    if(error) return say('forgotMsg', error.message, true);
-    say('forgotMsg','If that email has an account, a reset link is on its way.');
+    if(!authReady) return say('forgotMsg', NOT_READY, true);
+    try{ await fbAuth.sendPasswordResetEmail(email); say('forgotMsg','If that email has an account, a reset link is on its way.'); }
+    catch(err){ if(err && err.code==='auth/user-not-found') say('forgotMsg','If that email has an account, a reset link is on its way.'); else say('forgotMsg', friendly(err), true); }
   });
-  document.getElementById('logoutBtn').addEventListener('click', async ()=>{ if(sb) await sb.auth.signOut(); setUser(null); location.hash='#home'; });
+  document.getElementById('logoutBtn').addEventListener('click', async ()=>{ try{ if(fbAuth) await fbAuth.signOut(); }catch(_){} setUser(null); location.hash='#home'; });
   setUser(null); initAuth();
 
   /* ---------- Globe ---------- */
